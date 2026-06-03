@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>醫師控制台 - MiniClinic</title>
+    <style>
+        body { font-family: "Microsoft JhengHei", sans-serif; max-width: 960px; margin: 40px auto; padding: 0 20px; }
+        header { display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid #14B8A6; padding-bottom: 12px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 24px; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #E2E8F0; }
+        th { background: #0F2443; color: white; }
+        .status-BOOKED { color: #F59E0B; font-weight: bold; }
+        .status-COMPLETED { color: #10B981; font-weight: bold; }
+        .status-CANCELLED { color: #94A3B8; }
+        .btn-cancel { background: #EF4444; color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; }
+        .btn-cancel:hover { background: #DC2626; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>醫師控制台</h1>
+        <div>
+            <a th:href="@{/password}">修改密碼</a> | 
+            <form th:action="@{/logout}" method="post" style="display:inline;">
+                <button type="submit">登出</button>
+            </form>
+        </div>
+    </header>
+
+    <h2>今日掛號紀錄</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>時段</th>
+                <th>病患</th>
+                <th>病歷號</th>
+                <th>狀態</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="appt : ${appointments}">
+                <td th:text="${appt.timeSlot}">AM</td>
+                <td th:text="${appt.patient.name}">王小明</td>
+                <td th:text="${appt.patient.chartNo}">TEST00001</td>
+                <td>
+                    <span th:text="${appt.status}" th:class="'status-' + ${appt.status}">BOOKED</span>
+                </td>
+                <td>
+                    <!-- 只有狀態為 BOOKED 時才顯示取消按鈕 -->
+                    <button th:if="${appt.status == 'BOOKED'}"
+                            class="btn-cancel"
+                            th:data-id="${appt.apptId}"
+                            onclick="cancelAppointment(this)">取消</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script>
+        /**
+         * 執行掛號取消
+         * @param {HTMLElement} btn 按鈕元素
+         */
+        function cancelAppointment(btn) {
+            const apptId = btn.getAttribute('data-id');
+            if (!confirm('確定要取消此筆掛號預約嗎？')) return;
+
+            fetch(`/api/appointments/${apptId}/status`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ status: 'CANCELLED' })
+            })
+            .then(response => {
+                if (response.ok) {
+                    // 成功後重新整理頁面以更新顯示狀態
+                    location.reload();
+                } else if (response.status === 403) {
+                    alert('權限不足：您只能取消自己的掛號診次');
+                } else {
+                    alert('取消失敗，請確認該掛號是否存在或狀態是否正確');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('系統錯誤，請稍後再試');
+            });
+        }
+    </script>
+</body>
+</html>
