@@ -16,4 +16,5 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
     // 取得科別掛號統計：回傳格式為 [["家醫科", 5], ["內科", 3]]
     @Query("SELECT a.doctor.department, COUNT(a) FROM Appointment a GROUP BY a.doctor.department")
     List<Object[]> countAppointmentsByDepartment();
+    Long countByStatus(String string);
 }

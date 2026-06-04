@@ -1,0 +1,29 @@
+[33mcommit c43aa57d8bb19c92a405adcd8f35f10ae45edfe6[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: wanglulu172 <1124lulubaby@gmail.com>
+Date:   Wed Jun 3 21:02:00 2026 +0800
+
+    [NO-AI] 新增 Dockerfile，供 Render 部署使用
+
+[33mcommit 11f2310011d4cfcc0aaed6d8237ada27f9990431[m
+Author: wanglulu172 <1124lulubaby@gmail.com>
+Date:   Wed Jun 3 20:45:07 2026 +0800
+
+    [NO-AI] 部署前準備：新增 data-prod.sql（PostgreSQL 語法＋序列重設）
+
+[33mcommit c9c4abae40ec8aafd63bc80e56245db702f0023b[m
+Author: wanglulu172 <1124lulubaby@gmail.com>
+Date:   Wed Jun 3 20:35:13 2026 +0800
+
+    [NO-AI] 設定 Spring Profiles：dev（SQLite）/ prod（PostgreSQL）分離，加入 PostgreSQL 依賴
+
+[33mcommit 3a33809ed1c8743ae693093751728b89cb991ab3[m
+Author: wanglulu172 <1124lulubaby@gmail.com>
+Date:   Wed Jun 3 19:54:40 2026 +0800
+
+    [NO-AI] 新增 README.md，說明專案功能與本機執行步驟
+
+[33mcommit 64301a765c8af538e840a0a0af881a0501921c45[m
+Author: wanglulu172 <1124lulubaby@gmail.com>
+Date:   Wed Jun 3 19:43:08 2026 +0800
+
+    [NO-AI] 初始提交：Spring Boot MiniClinic 專案骨架
