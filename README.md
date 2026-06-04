@@ -63,6 +63,25 @@ src/
 │       ├── static/         # CSS、JS
 │       └── application.properties
 ```
+# MiniClinic - 診所掛號管理系統
+
+本專案為基於 Spring Boot 與 Thymeleaf 開發的醫療資訊系統微型原型，提供醫師與管理人員管理每日看診與掛號狀態。
+
+## 🚀 專案核心功能
+* **醫師 Dashboard**：即時查看今日掛號清單，支援動態變更掛號狀態。
+* **看診完成控制**：支援對 `BOOKED` 狀態的掛號進行「看診完成」與「取消」操作，並即時連動資料庫。
+* **數據統計端點**：提供公開的 `GET /api/stats` API，回傳系統內醫生、患者及掛號狀態的即時摘要數據。
+
+## 🛠️ 本地執行步驟
+
+### 前置需求
+* Java 17
+* Maven 3.x+
+
+### 啟動專案
+1. 複製專案至本地端：
+   ```bash
+   git clone [https://github.com/wanglulu172/miniclinic.git](https://github.com/wanglulu172/miniclinic.git)
 
 ## 作者
 
